@@ -11,13 +11,14 @@ const AvailableMeals = () => {
 
   let content = "";
   let loadedMeals = [];
+
   if (error) {
-    content = <p>Found no Meals.</p>;
+    content = <p>Found no Meals, an error has occured.</p>;
   }
   if (isLoading) {
     content = <p>Loading...</p>;
   } else {
-    console.log("data:", data);
+    // console.log("data:", data);
     for (const keyData in data) {
       loadedMeals.push({
         id: keyData,
@@ -26,7 +27,7 @@ const AvailableMeals = () => {
         price: data[keyData].price,
       });
     }
-    console.log("isLoading", isLoading);
+    // console.log("isLoading", isLoading);
   }
 
   return (
@@ -34,9 +35,6 @@ const AvailableMeals = () => {
       <Card>
         <ul>
           {content}
-          {/* {isLoading ? (
-            <p>Loading...</p>
-          ) : ( */}
           {loadedMeals.map((meal) => (
             <MealItem
               id={meal.id}
@@ -46,7 +44,6 @@ const AvailableMeals = () => {
               price={meal.price}
             />
           ))}
-          {/* ) */}
         </ul>
       </Card>
     </section>
