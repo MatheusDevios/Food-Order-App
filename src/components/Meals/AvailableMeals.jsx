@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useFetch from "../../hooks/use-fetch";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
 
+const url =
+  "https://react-movie-84a0e-default-rtdb.europe-west1.firebasedatabase.app/meals.json";
+
 const AvailableMeals = () => {
-  const url =
-    "https://react-movie-84a0e-default-rtdb.europe-west1.firebasedatabase.app/meals.json";
-  const { data, isLoading, error } = useFetch(url);
+  const { data, isLoading, error, sendRequest } = useFetch();
+
+  useEffect(() => {
+    sendRequest({
+      url: url,
+    });
+  }, [sendRequest]);
 
   let content = "";
   let loadedMeals = [];
@@ -27,6 +34,7 @@ const AvailableMeals = () => {
         price: data[keyData].price,
       });
     }
+    // console.log("error", error);
     // console.log("isLoading", isLoading);
   }
 
