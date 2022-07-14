@@ -1,7 +1,7 @@
-# <div align="center"> Meals Order App</div>
+# <div align="center"> MatMeals Order App</div>
 
 <p align="center">A Responsive Meals Order app made with React JS, Hooks, consuming and Sending data to Firebase.</p>
-<p>Sooner will be added login and logout auth through Firebase</p>
+<p>Note: Sooner will be added login and logout auth through Firebase</p>
 
 ## 🛠️ Technologies
 
