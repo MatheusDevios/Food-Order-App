@@ -1,28 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
-import CartContext from "../../store/cart-context";
+// import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 import useFetch from "../../hooks/use-fetch";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../store/cart-slice";
 
 const Cart = (props) => {
-  const cartCtx = useContext(CartContext);
+  // const cartCtx = useContext(CartContext);
   const [isCheckout, setIsCheckout] = useState(false);
 
   const { sendRequest } = useFetch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const dispatch = useDispatch();
+  const cartItemsTotal = useSelector((state) => state.cart.totalAmount);
+  const cartItemsRedux = useSelector((state) => state.cart.items);
 
-  const totalAmount = `$${cartCtx.totalAmout.toFixed(2)}`;
-  const hasItems = cartCtx.items.length > 0;
+  const totalAmount = `$${cartItemsTotal.toFixed(2)}`;
+  const hasItems = cartItemsRedux.length > 0;
 
   const cartItemRemoveHandler = (id) => {
-    cartCtx.removeItem(id);
+    // dispatch()
+    dispatch(cartActions.removeItemFromCart(id));
+    // cartCtx.removeItem(id);
   };
   const cartItemAddHandler = (item) => {
     const cartItem = { ...item, amount: 1 };
-    cartCtx.addItem(cartItem);
+    dispatch(cartActions.addItemToCartHandler(cartItem));
   };
 
   const orderHandler = () => {
@@ -39,15 +46,15 @@ const Cart = (props) => {
       },
       body: {
         user: userData,
-        orderedItems: cartCtx.items,
+        orderedItems: cartItemsRedux,
       },
     });
     setIsSubmitting(false);
     setDidSubmit(true);
-    cartCtx.clearCartHandler();
+    dispatch(cartActions.clearCartHandler({ items: [], totalAmount: 0 }));
   };
 
-  const cartitems = cartCtx.items.map((item) => (
+  const cartitems = cartItemsRedux.map((item) => (
     <CartItem
       key={item.id}
       name={item.name}
