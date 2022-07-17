@@ -4,8 +4,7 @@ import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
 
-const url =
-  "https://react-movie-84a0e-default-rtdb.europe-west1.firebasedatabase.app/meals.json";
+const url = process.env.REACT_APP_FIREBASE_MEALS;
 
 const AvailableMeals = () => {
   const { data, isLoading, error, sendRequest } = useFetch();

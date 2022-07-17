@@ -7,6 +7,8 @@ import useFetch from "../../hooks/use-fetch";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 
+const url = process.env.REACT_APP_FIREBASE_ORDER;
+
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
 
@@ -35,7 +37,7 @@ const Cart = (props) => {
   const subimitOrderHandler = async (userData) => {
     setIsSubmitting(true);
     await sendRequest({
-      url: "https://react-movie-84a0e-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+      url: url,
       method: "POST",
       headers: {
         "Content-Type": "application/json",

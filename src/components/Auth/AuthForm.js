@@ -5,7 +5,7 @@ import { authActions } from "../../store/auth-slice";
 
 import classes from "./AuthForm.module.css";
 
-let API_KEY = "AIzaSyDJ7thgdYkNxI24ZrxHW68IjQU0hDR_F-Q";
+let API_KEY = process.env.REACT_APP_FIREBASE_KEY;
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        //get date in milSec
+        //get date in millySec
         const expirationTime = new Date(
           new Date().getTime() + +data.expiresIn * 1000
         );
