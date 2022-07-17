@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import AuthForm from "./components/Auth/AuthForm";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
-import CartProvider from "./store/CartProvider";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -15,11 +17,21 @@ function App() {
     setCartIsShown(false);
   };
   return (
-    <CartProvider>
+    <>
       {cartIsShown && <Cart onCloseCart={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
-      <Meals />
-    </CartProvider>
+      <Routes>
+        <Route
+          path="/meals"
+          element={
+            <PrivateRoute>
+              <Meals />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/" element={<AuthForm />} />
+      </Routes>
+    </>
   );
 }
 

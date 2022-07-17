@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
-// import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 import useFetch from "../../hooks/use-fetch";
@@ -9,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cart-slice";
 
 const Cart = (props) => {
-  // const cartCtx = useContext(CartContext);
   const [isCheckout, setIsCheckout] = useState(false);
 
   const { sendRequest } = useFetch();
@@ -23,9 +21,7 @@ const Cart = (props) => {
   const hasItems = cartItemsRedux.length > 0;
 
   const cartItemRemoveHandler = (id) => {
-    // dispatch()
     dispatch(cartActions.removeItemFromCart(id));
-    // cartCtx.removeItem(id);
   };
   const cartItemAddHandler = (item) => {
     const cartItem = { ...item, amount: 1 };
