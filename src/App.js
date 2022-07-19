@@ -5,6 +5,7 @@ import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -30,6 +31,7 @@ function App() {
           }
         />
         <Route path="/" element={<AuthForm />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

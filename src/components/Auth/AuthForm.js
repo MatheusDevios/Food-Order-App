@@ -45,18 +45,17 @@ const AuthForm = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         setIsLoading(false);
         if (res.ok) {
           return res.json();
         } else {
-          return res.json().then((data) => {
-            let errorMessage = "Authentication failed!";
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
-            }
-            throw new Error(errorMessage);
-          });
+          const data = await res.json();
+          let errorMessage = "Authentication failed!";
+          if (data && data.error && data.error.message) {
+            errorMessage = data.error.message;
+          }
+          throw new Error(errorMessage);
         }
       })
       .then((data) => {
