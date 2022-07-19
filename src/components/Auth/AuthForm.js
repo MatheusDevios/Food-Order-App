@@ -21,7 +21,7 @@ const AuthForm = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
@@ -34,47 +34,48 @@ const AuthForm = () => {
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
     }
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(async (res) => {
-        setIsLoading(false);
-        if (res.ok) {
-          return res.json();
-        } else {
-          const data = await res.json();
-          let errorMessage = "Authentication failed!";
-          if (data && data.error && data.error.message) {
-            errorMessage = data.error.message;
-          }
-          throw new Error(errorMessage);
-        }
-      })
-      .then((data) => {
-        //get date in millySec
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-        dispatch(
-          authActions.login({
-            token: data.idToken,
-            expirationTime: expirationTime.toISOString(),
-          })
-        );
-        navigate("/meals");
-        // console.log(data);
-      })
-      .catch((err) => {
-        alert(err.message);
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+
+      setIsLoading(false);
+
+      if (res.ok) {
+        const data = await res.json();
+        let errorMessage = "Authentication failed!";
+        if (data && data.error && data.error.message) {
+          errorMessage = data.error.message;
+        }
+        throw new Error(errorMessage);
+      }
+
+      const data = await res.json();
+
+      const expirationTime = new Date(
+        new Date().getTime() + +data.expiresIn * 1000
+      );
+
+      dispatch(
+        authActions.login({
+          token: data.idToken,
+          expirationTime: expirationTime.toISOString(),
+        })
+      );
+
+      navigate("/meals");
+      // console.log(data);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
