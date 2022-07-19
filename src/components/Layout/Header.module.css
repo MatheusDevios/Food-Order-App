@@ -33,3 +33,16 @@
     object-fit: cover;
     transform: rotateZ(-5deg) translateY(-4rem) translateX(-1rem);
 }
+
+/*  MEDIA QUERIES (SMAIL DEVICES) */
+
+@media screen and (max-width: 600px) {
+
+    .header {
+        padding: 0;
+    }
+
+    .header img {
+        width: 8rem;
+    }
+}
