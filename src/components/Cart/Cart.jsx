@@ -18,6 +18,7 @@ const Cart = (props) => {
   const dispatch = useDispatch();
   const cartItemsTotal = useSelector((state) => state.cart.totalAmount);
   const cartItemsRedux = useSelector((state) => state.cart.items);
+  const authIdRedux = useSelector((state) => state.auth.userId);
 
   const totalAmount = `$${cartItemsTotal.toFixed(2)}`;
   const hasItems = cartItemsRedux.length > 0;
@@ -43,6 +44,7 @@ const Cart = (props) => {
         "Content-Type": "application/json",
       },
       body: {
+        userId: authIdRedux,
         user: userData,
         orderedItems: cartItemsRedux,
       },

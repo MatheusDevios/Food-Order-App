@@ -6,41 +6,45 @@ import { authActions } from "../../store/auth-slice";
 import classes from "./Header.module.css";
 import HeaderCartButton from "./HeaderCartButton";
 import LOGO from "../../assets/logo.png";
+// import UserInfo from "../User/UserInfo";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const authIsLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [isLogged, setIsLogged] = useState(authIsLoggedIn);
   // const authToken = useSelector((state) => state.auth.token);
+  // const authUserId = useSelector((state) => state.auth.userId);
+  const authUserId = localStorage.getItem("userId");
   const authToken = localStorage.getItem("token");
 
   useEffect(() => {
     if (authToken) {
       setIsLogged(true);
       dispatch(
-        authActions.updateReduxState({
+        authActions.login({
           token: authToken,
-          isLoggedIn: true,
+          userId: authUserId,
+          expirationTime: localStorage.getItem("expirationTime"),
         })
       );
     } else {
       setIsLogged(false);
-      dispatch(
-        authActions.updateReduxState({
-          token: authToken,
-          isLoggedIn: false,
-        })
-      );
+      dispatch(authActions.logout());
     }
-  }, [authToken, dispatch]);
+  }, [authToken, dispatch, authUserId]);
 
   return (
     <>
       <header className={classes.header}>
-        <Link to="/meals">
+        <Link to="/Meals">
           <img src={LOGO} alt="Logo" />
         </Link>
         {isLogged && <HeaderCartButton onClick={props.onShowCart} />}
+        {isLogged && (
+          <Link className={classes.button} to="/User">
+            User Info
+          </Link>
+        )}
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="Table full of Delicious Meals" />

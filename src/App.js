@@ -6,6 +6,7 @@ import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound";
+import UserInfo from "./components/User/UserInfo";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -23,7 +24,7 @@ function App() {
       <Header onShowCart={showCartHandler} />
       <Routes>
         <Route
-          path="/meals"
+          path="/Meals"
           element={
             <PrivateRoute>
               <Meals />
@@ -31,6 +32,7 @@ function App() {
           }
         />
         <Route path="/" element={<AuthForm />} />
+        <Route path="/User" element={<UserInfo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

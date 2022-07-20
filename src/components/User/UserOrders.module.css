@@ -1,0 +1,9 @@
+.orders {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.orders div {
+    padding: 0.25rem 2rem;
+
+}

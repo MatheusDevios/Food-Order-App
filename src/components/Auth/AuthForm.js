@@ -46,10 +46,11 @@ const AuthForm = () => {
           "Content-Type": "application/json",
         },
       });
+      console.log(res);
 
       setIsLoading(false);
 
-      if (res.ok) {
+      if (!res.ok) {
         const data = await res.json();
         let errorMessage = "Authentication failed!";
         if (data && data.error && data.error.message) {
@@ -59,6 +60,8 @@ const AuthForm = () => {
       }
 
       const data = await res.json();
+      // setData(data);
+      console.log(data);
 
       const expirationTime = new Date(
         new Date().getTime() + +data.expiresIn * 1000
@@ -67,6 +70,7 @@ const AuthForm = () => {
       dispatch(
         authActions.login({
           token: data.idToken,
+          userId: data.localId,
           expirationTime: expirationTime.toISOString(),
         })
       );
