@@ -20,7 +20,7 @@ function App() {
       navigate("/");
     }
     // eslint-disable-next-line
-  }, []);
+  }, [authToken]);
 
   const showCartHandler = () => {
     setCartIsShown(true);
