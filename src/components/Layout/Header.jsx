@@ -6,7 +6,6 @@ import { authActions } from "../../store/auth-slice";
 import classes from "./Header.module.css";
 import HeaderCartButton from "./HeaderCartButton";
 import LOGO from "../../assets/logo.png";
-// import UserInfo from "../User/UserInfo";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -40,11 +39,6 @@ const Header = (props) => {
           <img src={LOGO} alt="Logo" />
         </Link>
         {isLogged && <HeaderCartButton onClick={props.onShowCart} />}
-        {isLogged && (
-          <Link className={classes.button} to="/User">
-            User Info
-          </Link>
-        )}
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="Table full of Delicious Meals" />

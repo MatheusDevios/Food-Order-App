@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth-slice";
 import { cartActions } from "../../store/cart-slice";
 import CartIcon from "../Cart/CartIcon";
@@ -46,6 +46,9 @@ const HeaderCartButton = (props) => {
       <button className={classes.button} onClick={logoutHandler}>
         Logout
       </button>
+      <Link className={classes.button} to="/User">
+        User Info
+      </Link>
       <button onClick={props.onClick} className={btnClasses}>
         <span className={classes.icon}>
           <CartIcon />
