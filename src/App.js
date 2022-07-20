@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { useState } from "react";
+// useCallback, useEffect, useNavigate
+import { Navigate, Route, Routes } from "react-router-dom";
 import AuthForm from "./components/Auth/AuthForm";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
@@ -11,19 +12,19 @@ import UserInfo from "./components/User/UserInfo";
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
   const authToken = localStorage.getItem("token");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const navigateToPath = useCallback(() => {
-    if (authToken) {
-      navigate("/meals");
-    } else {
-      navigate("/");
-    }
-  }, [authToken, navigate]);
+  // const navigateToPath = useCallback(() => {
+  //   if (authToken) {
+  //     navigate("/meals");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // }, [authToken]);
 
-  useEffect(() => {
-    navigateToPath();
-  }, [navigateToPath]);
+  // useEffect(() => {
+  //   navigateToPath();
+  // }, [navigateToPath]);
 
   const showCartHandler = () => {
     setCartIsShown(true);
@@ -37,7 +38,16 @@ function App() {
       {cartIsShown && <Cart onCloseCart={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <Routes>
-        <Route path="/" element={<Navigate replace to="/Auth" />} />
+        <Route
+          path="/"
+          element={
+            authToken ? (
+              <Navigate replace to="/meals" />
+            ) : (
+              <Navigate replace to="/auth" />
+            )
+          }
+        />
         <Route
           path="/meals"
           element={

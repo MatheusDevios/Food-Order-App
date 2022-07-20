@@ -30,7 +30,7 @@ const useFetch = () => {
         });
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setFetchedData({
         data: [],
         isLoading: false,

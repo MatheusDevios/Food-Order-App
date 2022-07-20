@@ -46,7 +46,7 @@ const AuthForm = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log(res);
+      // console.log(res);
 
       setIsLoading(false);
 
@@ -61,7 +61,7 @@ const AuthForm = () => {
 
       const data = await res.json();
       // setData(data);
-      console.log(data);
+      // console.log(data);
 
       const expirationTime = new Date(
         new Date().getTime() + +data.expiresIn * 1000

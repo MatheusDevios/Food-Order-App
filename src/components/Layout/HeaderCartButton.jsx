@@ -46,7 +46,7 @@ const HeaderCartButton = (props) => {
       <button className={classes.button} onClick={logoutHandler}>
         Logout
       </button>
-      <Link className={classes.button} to="/User">
+      <Link className={classes.button} to="/user">
         User Info
       </Link>
       <button onClick={props.onClick} className={btnClasses}>

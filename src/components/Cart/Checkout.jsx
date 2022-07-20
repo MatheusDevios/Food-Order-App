@@ -48,8 +48,8 @@ const Checkout = (props) => {
     if (!formIsValid) {
       return;
     }
-    console.log("Subimitted");
-    console.log(nameValue, streetValue, codeValue, cityValue);
+    // console.log("Subimitted");
+    // console.log(nameValue, streetValue, codeValue, cityValue);
 
     props.onConfirm({
       name: nameValue,
