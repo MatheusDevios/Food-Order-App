@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import AuthForm from "./components/Auth/AuthForm";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
@@ -34,6 +34,7 @@ function App() {
       {cartIsShown && <Cart onCloseCart={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <Routes>
+        <Route path="/" element={<Navigate replace to="/Auth" />} />
         <Route
           path="/Meals"
           element={
@@ -42,7 +43,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/" element={<AuthForm />} />
+        <Route path="/Auth" element={<AuthForm />} />
         <Route path="/User" element={<UserInfo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
