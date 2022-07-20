@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import AuthForm from "./components/Auth/AuthForm";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
@@ -10,6 +10,16 @@ import UserInfo from "./components/User/UserInfo";
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
+  const authToken = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authToken) {
+      navigate("/Meals");
+    } else {
+      navigate("/");
+    }
+  }, []);
 
   const showCartHandler = () => {
     setCartIsShown(true);

@@ -75,7 +75,7 @@ const AuthForm = () => {
         })
       );
 
-      navigate("/meals");
+      navigate("/Meals");
       // console.log(data);
     } catch (err) {
       alert(err.message);
