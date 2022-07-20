@@ -19,6 +19,7 @@ function App() {
     } else {
       navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   const showCartHandler = () => {
