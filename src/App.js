@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import AuthForm from "./components/Auth/AuthForm";
 import Cart from "./components/Cart/Cart";
@@ -13,14 +13,17 @@ function App() {
   const authToken = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const navigateToPath = useCallback(() => {
     if (authToken) {
-      navigate("/Meals");
+      navigate("/meals");
     } else {
       navigate("/");
     }
-    // eslint-disable-next-line
-  }, [authToken]);
+  }, [authToken, navigate]);
+
+  useEffect(() => {
+    navigateToPath();
+  }, [navigateToPath]);
 
   const showCartHandler = () => {
     setCartIsShown(true);
@@ -36,15 +39,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/Auth" />} />
         <Route
-          path="/Meals"
+          path="/meals"
           element={
             <PrivateRoute>
               <Meals />
             </PrivateRoute>
           }
         />
-        <Route path="/Auth" element={<AuthForm />} />
-        <Route path="/User" element={<UserInfo />} />
+        <Route path="/auth" element={<AuthForm />} />
+        <Route path="/user" element={<UserInfo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

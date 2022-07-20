@@ -35,7 +35,7 @@ const Header = (props) => {
   return (
     <>
       <header className={classes.header}>
-        <Link to="/Meals">
+        <Link to="/meals">
           <img src={LOGO} alt="Logo" />
         </Link>
         {isLogged && <HeaderCartButton onClick={props.onShowCart} />}
