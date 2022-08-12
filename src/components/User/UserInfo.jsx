@@ -20,7 +20,6 @@ const UserInfo = () => {
   let content = "";
   let order = [];
   let loadedUsers = [];
-  let orders = [];
 
   if (error) {
     content = <p>Found no Meals, an error has occured.</p>;
@@ -39,16 +38,7 @@ const UserInfo = () => {
         items: data[keyData].orderedItems,
       });
     }
-
-    for (const items in loadedUsers.items) {
-      orders.push({
-        name: loadedUsers[items].name,
-        price: loadedUsers[items].price,
-        amount: loadedUsers[items].amount,
-      });
-    }
     // console.log("error", error);
-    // console.log("orders", orders);
     // console.log("data", loadedUsers);
     // console.log("isLoading", isLoading);
     const existingItem = loadedUsers.filter((order) => order.id === authUserId);
