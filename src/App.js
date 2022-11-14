@@ -56,7 +56,10 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/auth" element={<AuthForm />} />
+        <Route
+          path="/auth"
+          element={!authToken ? <AuthForm /> : <Navigate replace to="/meals" />}
+        />
         <Route path="/user" element={<UserInfo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
